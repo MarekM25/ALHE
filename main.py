@@ -9,6 +9,7 @@ xn  yn
 '''
 
 from shapely.geometry import Polygon
+from shapely.geometry import Point
 
 def read_data_from_file():
     with open('input.txt') as file:
@@ -16,7 +17,23 @@ def read_data_from_file():
         gallery_coordinates = [[float(x) for x in line.split()] for line in file]
     return radius, net_density, gallery_coordinates
 
-def read_extremes_from_coordinates(gallery_coordinates):
+def get_cameras_coordinates(net_density, gallery_coordinates):
+    min_x, max_x, min_y, max_y = get_extremes_from_coordinates(gallery_coordinates)
+    gallery_polygon=Polygon(gallery_coordinates)
+    cameras_coordinates=[]
+    step=1.0/net_density
+    current_y=min_y
+    while(current_y<max_y):
+        current_x=min_x
+        while(current_x<max_x):
+            point=Point(current_x,current_y)
+            if(point.within(gallery_polygon)):
+                cameras_coordinates.append(point)
+            current_x+=step
+        current_y+=step
+    return cameras_coordinates
+
+def get_extremes_from_coordinates(gallery_coordinates):
     min_x=gallery_coordinates[0][0]
     max_x=gallery_coordinates[0][0]
     min_y=gallery_coordinates[0][1]
@@ -34,8 +51,8 @@ def read_extremes_from_coordinates(gallery_coordinates):
 
 def main():
     radius, net_density, gallery_coordinates = read_data_from_file()
-    min_x, max_x, min_y, max_y=read_extremes_from_coordinates(gallery_coordinates)
     gallery_polygon = Polygon(gallery_coordinates)
+    cameras_coordinates=get_cameras_coordinates(net_density, gallery_coordinates)
     print("Pole całkowite galerii: {}".format(gallery_polygon.area))
 
 if __name__ == "__main__":
