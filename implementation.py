@@ -119,13 +119,13 @@ def dijkstra_search(graph, start, goal):
     cost_so_far = {}
     came_from[start] = None
     cost_so_far[start] = 0
-    
+
     while not frontier.empty():
         current = frontier.get()
-        
+
         if current == goal:
             break
-        
+
         for next in graph.neighbors(current):
             new_cost = cost_so_far[current] + graph.cost(current, next)
             if next not in cost_so_far or new_cost < cost_so_far[next]:
@@ -133,7 +133,7 @@ def dijkstra_search(graph, start, goal):
                 priority = new_cost
                 frontier.put(next, priority)
                 came_from[next] = current
-    
+
     return came_from, cost_so_far
 
 def reconstruct_path(came_from, start, goal):
@@ -178,3 +178,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
