@@ -15,6 +15,7 @@ example_graph.edges = {
 }
 
 import collections
+from sortedcontainers import SortedSet
 
 class Queue:
     def __init__(self):
@@ -173,8 +174,35 @@ def a_star_search(graph, start, goal):
                 came_from[next] = current
     
     return came_from, cost_so_far
+
+class node:
+    def __init__(self):
+        self.fScore = 0;
+        self.hScore = 0;
+
+def getIndexOfElements():
+    return [1,2,3]
+
 def main():
-    print('test')
+    s = node()
+    s.fScore = 10
+    s2 = node()
+    s2.fScore = 12
+    s3 = node()
+    s3.fScore = 8
+    s3.hScore = 3
+    testQueue = PriorityQueue()
+    testQueue.put(s,s.fScore)
+    testQueue.put(s2,s2.fScore)
+    testQueue.put(s3,s3.fScore)
+    while not testQueue.empty():
+        currentNode = testQueue.get()
+        indexOfElements = getIndexOfElements()
+        currentNode.hScore = len(indexOfElements)
+        if currentNode.hScore == 0:
+            break
+        print(currentNode.fScore)
+        print(currentNode.hScore)
 
 if __name__ == "__main__":
     main()

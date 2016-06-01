@@ -15,7 +15,7 @@ struct kola_zgaszenie
 //dla tych co mo¿emy zgasiæ liczymy FScore
 //wrzucamy je znowu do kolejki wed³ug FScore
 
-//Warunek zakoñczenia: gdy na przodzie uporz¹dkowanej listy jest node, dla którego mo¿emy zgasiæ 0 nowych kamer
+//Warunek zakoñczenia: gdy na przodzie uporz¹dkowanej listy jest node, dla którego mo¿emy zgasiæ 0 nowych kamer lub lista pusta
 
 
 struct node
