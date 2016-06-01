@@ -10,7 +10,8 @@ struct kola_zgaszenie
 //mamy kolejkê uporz¹dkowan¹ po fScore
 //na pocz¹tku jest w niej tylko root i wszystkie s¹ zapalone
 //pobieramy pierwszy element z kolejki (czyli najpierw root)
-//sprawdzamy dla tego elementu, które mo¿emy zgasiæ pobieramy tablicê indeksów
+//sprawdzamy dla tego elementu, które mo¿emy zgasiæ pobieramy listê indeksów
+//hScore to bêdzie iloœæ elementów listy indeksów
 //dla tych co mo¿emy zgasiæ liczymy FScore
 //wrzucamy je znowu do kolejki wed³ug FScore
 
@@ -20,7 +21,9 @@ struct kola_zgaszenie
 struct node
 {
 	kolo_zgaszenie[] tablicaKolIZgaszen;
-	
+	int[] listaIndeksowKolKotreMozemyZgasic;
+	int fScore;
+	int hScore;
 }
 
 
@@ -38,7 +41,16 @@ int hScore(kola_zgaszenie[] tablicaKolIZgaszen, int indexBadanegoKola)
 	return hScore;
 }
 
-int[] tablicaIndeksowKtoreMoznaZgasic()
+List<int> listaIndeksowKtoreMoznaZgasic(kola_zgaszenie[] tablicaKolIZgaszen)
+{
+	List<int> listaIndeksow = new List<int>();
+	foreach (var koloZgaszenie in tablicaKolIZgaszen)
+	{
+		if (moznaZgasicKolo(tablicaKolZgoszen, koloZgaszenie.Index)
+			listaIndeksow.Add(koloZgaszenie.Index);
+	}
+	return listaIndeksow;
+}
 
 bool moznaZgasicKolo(kola_zgaszenie[] tablicaKolIZgaszen, int indexKolaKtoreSprawdzamyCzyMozemyZgasic)
 {
