@@ -220,6 +220,6 @@ def main():
         for i in range(len(currentNode.childIndexes)):
             print(currentNode.childIndexes[i])
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
