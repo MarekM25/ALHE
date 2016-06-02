@@ -9,7 +9,6 @@ xn  yn
 '''
 
 from shapely.geometry import Polygon
-from shapely.geometry import Point
 import geometry
 import codecs
 import a_star
