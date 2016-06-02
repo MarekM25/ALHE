@@ -25,11 +25,13 @@ class node:
         self.cameras = []
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.fScore == other.fScore
+            return self.fScore == other.fScore #and self.stepCost == self.stepCost
         return NotImplemented
 
     def __lt__(self, other):
         if isinstance(other, self.__class__):
+           # if (self.fScore == other.fScore):
+               # return self.stepCost < other.stepCost
             return self.fScore< other.fScore
     def expand(self,gallery_polygon):
         self.childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras, gallery_polygon)
@@ -44,10 +46,11 @@ def aStar(cameras, gallery_polygon):
     root.cameras = cameras
     root.expand(gallery_polygon)
     nodesQueueByFScore = PriorityQueue()
-    nodesQueueByFScore.put(root,-root.fScore)
+    nodesQueueByFScore.put(root,-1000*root.fScore-root.stepCost)
 
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
+        print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
         if currentNode.hScore == 0:
             return currentNode
         for (i,childIndex) in enumerate(currentNode.childIndexes):
@@ -56,4 +59,4 @@ def aStar(cameras, gallery_polygon):
             newNode.cameras = copy.deepcopy(currentNode.cameras)
             newNode.disableCamera(childIndex)
             newNode.expand(gallery_polygon)
-            nodesQueueByFScore.put(newNode,-newNode.fScore)
+            nodesQueueByFScore.put(newNode,-1000*newNode.fScore-newNode.stepCost)

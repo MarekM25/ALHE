@@ -46,6 +46,7 @@ def main():
     gallery_polygon = Polygon(gallery_coordinates)
     cameras_coordinates=geometry.get_cameras_coordinates(net_density, gallery_coordinates)
     cameras = geometry.get_cameras_array(cameras_coordinates,radius)
+    print_cameras_coordinates(cameras)
     start = time.time()
     node = a_star.aStar(cameras, gallery_polygon)
     end = time.time()
