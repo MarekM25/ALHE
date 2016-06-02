@@ -7,15 +7,15 @@ struct kola_zgaszenie
 }
 
 //A_star
-//mamy kolejkê uporz¹dkowan¹ po fScore
-//na pocz¹tku jest w niej tylko root i wszystkie s¹ zapalone
+//mamy kolejke uporzadkowana po fScore
+//na poczatku jest w niej tylko root i wszystkie sa zapalone
 //pobieramy pierwszy element z kolejki (czyli najpierw root)
-//sprawdzamy dla tego elementu, które mo¿emy zgasiæ pobieramy listê indeksów
-//hScore to bêdzie iloœæ elementów listy indeksów
-//dla tych co mo¿emy zgasiæ liczymy FScore
-//wrzucamy je znowu do kolejki wed³ug FScore
+//sprawdzamy dla tego elementu, ktore mozemy zgasic pobieramy liste indeksow
+//hScore to bedzie ilosc elementow listy indeksow
+//dla tych co mozemy zgasic liczymy FScore
+//wrzucamy je znowu do kolejki wedlug FScore
 
-//Warunek zakoñczenia: gdy na przodzie uporz¹dkowanej listy jest node, dla którego mo¿emy zgasiæ 0 nowych kamer lub lista pusta
+//Warunek zakoï¿½czenia: gdy na przodzie uporzï¿½dkowanej listy jest node, dla ktï¿½rego moï¿½emy zgasiï¿½ 0 nowych kamer lub lista pusta
 
 
 struct node
@@ -32,7 +32,7 @@ int hScore(kola_zgaszenie[] tablicaKolIZgaszen, int indexBadanegoKola)
 	int hScore = 0;
 	tablicaKolIZgaszen[indexBadanegoKola].zgaszone = tr;
 	
-	//iterujemy przez t¹ tablicê
+	//iterujemy przez tï¿½ tablicï¿½
 	foreach (var koloZgaszenie in tablicaKolIZgaszen)
 	{
 		if (moznaZgasicKolo(tablicaKolZgoszen, koloZgaszenie.Index)
