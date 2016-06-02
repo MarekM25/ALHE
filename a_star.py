@@ -1,4 +1,5 @@
 import heapq
+import geometry
 
 class PriorityQueue:
     def __init__(self):
@@ -20,26 +21,29 @@ class node:
         self.stepCost = 0
         self.fScore = 0
         self.childIndexes = []
+        self.cameras = []
+    def expand(self):
+        childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras)
+        self.hScore =  len(childIndexes)
+        self.fScore = self.stepCost + self.hScore
+    def disableCamera(self,indexToDisable):
+        self.cameras[indexToDisable].disableCamera()
 
-def getIndexOfElements():
-    return [1,2,3]
 
-
-def aStar():
-    #initCircleAndTurnsOff()
-    #circleAndTurnsOff =
+def aStar(cameras):
     root = node()
-    root.childIndexes = getIndexOfElements()
-    root.hScore = len(root.childIndexes)
-    root.fScore = root.stepCost + root.hScore
+    root.cameras = cameras
+    root.expand()
     nodesQueueByFScore = PriorityQueue()
-    nodesQueueByFScore.put(root,root.fScore)
-
-
 
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
         if currentNode.hScore == 0:
             break
-        for i in range(len(currentNode.childIndexes)):
-            print(currentNode.childIndexes[i])
+        for (i,childIndex) in enumerate(currentNode.childIndexes):
+            newNode = node()
+            newNode.stepCost = currentNode.stepCost + 1
+            newNode.cameras = currentNode.cameras
+            newNode.disableCamera(childIndex)
+            newNode.expand()
+            nodesQueueByFScore.put(newNode,newNode.fScore)

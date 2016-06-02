@@ -29,9 +29,8 @@ def main():
     for (i,coordinate) in enumerate(cameras_coordinates):
             camera = geometry.Camera(coordinate, radius)
             cameras.append(camera)
-    print(cameras[0].point)
     print("Pole całkowite galerii: {}".format(gallery_polygon.area))
-    a_star.aStar()
+    a_star.aStar(cameras)
 
 if __name__ == "__main__":
     main()

@@ -51,6 +51,15 @@ def testCameraClass(cameras_coordinates,radius):
     camera.disableCamera()
     print(camera.enabled)
 
+def getIndexOfCamerasToTurnOff(camerasArray):
+    indexArray = []
+    for (i, camera) in enumerate(camerasArray):
+        camerasArray[i].disableCamera()
+        if (isGalleryCovered(camerasArray)):
+            indexArray.append(i)
+        camerasArray[i].enabled = True
+    return indexArray
 
-def isGalleryCovered(boolCameraArray):
+
+def isGalleryCovered(camerasArray):
     return True
