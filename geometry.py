@@ -56,10 +56,17 @@ def getIndexOfCamerasToTurnOff(camerasArray):
     indexArray = []
     for (i, camera) in enumerate(camerasArray):
         camerasArray[i].disableCamera()
-        if isGalleryCovered(camerasArray):
+        if isGalleryCoveredMock(camerasArray,[]):
             indexArray.append(i)
         camerasArray[i].enabled = True
     return indexArray
+
+def isGalleryCoveredMock(cameras,gallery):
+    if cameras[1].enabled == True:
+        return True
+    if cameras[0].enabled == True and cameras[2].enabled == True:
+        return True
+    return False
 
 
 def isGalleryCovered(camerasArray, gallery_polygon):
