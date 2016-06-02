@@ -48,9 +48,8 @@ def aStar(cameras):
 
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
-        print(currentNode.fScore)
         if currentNode.hScore == 0:
-            break
+            return currentNode
         for (i,childIndex) in enumerate(currentNode.childIndexes):
             newNode = node()
             newNode.stepCost = currentNode.stepCost + 1

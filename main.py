@@ -24,6 +24,12 @@ def print_cameras_coordinates(cameras):
     for (i, camera) in enumerate(cameras):
         print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
 
+
+def print_cameras_to_turn_off(node):
+    for (i, camera) in enumerate(node.cameras):
+        if (camera.enabled == False):
+            print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
+
 def main():
     radius, net_density, gallery_coordinates = read_data_from_file()
     gallery_polygon = Polygon(gallery_coordinates)
@@ -34,8 +40,9 @@ def main():
             cameras.append(camera)
     print_cameras_coordinates(cameras)
     geometry.isGalleryCovered(cameras,gallery_polygon)
-    print("Pole całkowite galerii: {}".format(gallery_polygon.area))
-    a_star.aStar(cameras)
-
+    print()
+    print("Należy wyłączyć kamery:")
+    node = a_star.aStar(cameras)
+    print_cameras_to_turn_off(node)
 if __name__ == "__main__":
     main()
