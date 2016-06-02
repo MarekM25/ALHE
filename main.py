@@ -22,31 +22,23 @@ def read_data_from_file():
     return radius, net_density, gallery_coordinates
 
 def print_results(cameras,node,a_star_time):
-    output = codecs.open(sys.argv[2], 'w', "utf-8")
     print("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: ")
-    output.write("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: \n")
-    print_cameras_coordinates(cameras,output)
+    print_cameras_coordinates(cameras)
     print("\nKAMERY, KTÓRE NALEŻY WŁĄCZYĆ: ")
-    output.write("\nKAMERY, KTÓRE NALEŻY WŁĄCZYĆ: \n")
-    print_cameras_to_turn_on(node, output)
+    print_cameras_to_turn_on(node)
     print()
-    output.write("\n")
     print("Czas wykonania algorytmu: {}".format(a_star_time))
-    output.write("Czas wykonania algorytmu: {}".format(a_star_time))
 
-def print_cameras_coordinates(cameras,output):
+def print_cameras_coordinates(cameras):
     for (i, camera) in enumerate(cameras):
-        output.write("Kamera nr {} o współrzędnych {}\n".format(i,camera.point))
         print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
 
-def print_cameras_to_turn_on(node, output):
+def print_cameras_to_turn_on(node):
     counter=0
     for (i, camera) in enumerate(node.cameras):
         if (camera.enabled == True):
             counter=counter+1
-            output.write("Kamera nr {} o współrzędnych {}\n".format(i,camera.point))
             print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
-    output.write("\nMINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: {}".format(counter))
     print("\nMINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: {}".format(counter))
 
 def main():
