@@ -34,10 +34,14 @@ def print_cameras_coordinates(cameras,output):
         print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
 
 def print_cameras_to_turn_on(node, output):
+    counter=0
     for (i, camera) in enumerate(node.cameras):
         if (camera.enabled == True):
+            counter=counter+1
             output.write("Kamera nr {} o współrzędnych {}\n".format(i,camera.point))
             print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
+    output.write("\nMINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: {}".format(counter))
+    print("\nMINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: {}".format(counter))
 
 def main():
     radius, net_density, gallery_coordinates = read_data_from_file()
