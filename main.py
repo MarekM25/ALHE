@@ -33,6 +33,7 @@ def main():
             camera = geometry.Camera(coordinate, radius)
             cameras.append(camera)
     print_cameras_coordinates(cameras)
+    geometry.isGalleryCovered(cameras,gallery_polygon)
     print("Pole całkowite galerii: {}".format(gallery_polygon.area))
     a_star.aStar(cameras)
 
