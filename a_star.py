@@ -1,5 +1,6 @@
 import heapq
 import geometry
+import copy
 
 class PriorityQueue:
     def __init__(self):
@@ -43,17 +44,17 @@ def aStar(cameras):
     root.cameras = cameras
     root.expand()
     nodesQueueByFScore = PriorityQueue()
-    nodesQueueByFScore.put(root,root.fScore)
+    nodesQueueByFScore.put(root,-root.fScore)
 
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
+        print(currentNode.fScore)
         if currentNode.hScore == 0:
             break
-        print(currentNode.childIndexes)
         for (i,childIndex) in enumerate(currentNode.childIndexes):
             newNode = node()
             newNode.stepCost = currentNode.stepCost + 1
-            newNode.cameras = currentNode.cameras
+            newNode.cameras = copy.deepcopy(currentNode.cameras)
             newNode.disableCamera(childIndex)
             newNode.expand()
-            nodesQueueByFScore.put(newNode,newNode.fScore)
+            nodesQueueByFScore.put(newNode,-newNode.fScore)
