@@ -23,8 +23,8 @@ class node:
         self.childIndexes = []
         self.cameras = []
     def expand(self):
-        childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras)
-        self.hScore =  len(childIndexes)
+        self.childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras)
+        self.hScore =  len(self.childIndexes)
         self.fScore = self.stepCost + self.hScore
     def disableCamera(self,indexToDisable):
         self.cameras[indexToDisable].disableCamera()
@@ -35,12 +35,13 @@ def aStar(cameras):
     root.cameras = cameras
     root.expand()
     nodesQueueByFScore = PriorityQueue()
-    #nodesQueueByFScore.put(root,root.fScore)
+    nodesQueueByFScore.put(root,root.fScore)
 
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
         if currentNode.hScore == 0:
             break
+        print(currentNode.childIndexes)
         for (i,childIndex) in enumerate(currentNode.childIndexes):
             newNode = node()
             newNode.stepCost = currentNode.stepCost + 1

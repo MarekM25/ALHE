@@ -54,10 +54,11 @@ def testCameraClass(cameras_coordinates,radius):
 def getIndexOfCamerasToTurnOff(camerasArray):
     indexArray = []
     for (i, camera) in enumerate(camerasArray):
-        camerasArray[i].disableCamera()
-        if isGalleryCoveredMock(camerasArray,[]):
-            indexArray.append(i)
-        camerasArray[i].enabled = True
+        if camerasArray[i].enabled == True:
+            camerasArray[i].disableCamera()
+            if isGalleryCoveredMock(camerasArray,[]):
+                indexArray.append(i)
+            camerasArray[i].enabled = True
     return indexArray
 
 def isGalleryCoveredMock(cameras,gallery):
