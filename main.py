@@ -13,6 +13,7 @@ import geometry
 import codecs
 import a_star
 import sys
+import time
 
 def read_data_from_file():
     with open(sys.argv[1]) as file:
@@ -20,7 +21,7 @@ def read_data_from_file():
         gallery_coordinates = [[float(x) for x in line.split()] for line in file]
     return radius, net_density, gallery_coordinates
 
-def print_results(cameras,node):
+def print_results(cameras,node,a_star_time):
     output = codecs.open(sys.argv[2], 'w', "utf-8")
     print("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: ")
     output.write("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: \n")
@@ -28,6 +29,10 @@ def print_results(cameras,node):
     print("\nKAMERY, KTÓRE NALEŻY WŁĄCZYĆ: ")
     output.write("\nKAMERY, KTÓRE NALEŻY WŁĄCZYĆ: \n")
     print_cameras_to_turn_on(node, output)
+    print()
+    output.write("\n")
+    print("Czas wykonania algorytmu: {}".format(a_star_time))
+    output.write("Czas wykonania algorytmu: {}".format(a_star_time))
 
 def print_cameras_coordinates(cameras,output):
     for (i, camera) in enumerate(cameras):
@@ -49,8 +54,11 @@ def main():
     gallery_polygon = Polygon(gallery_coordinates)
     cameras_coordinates=geometry.get_cameras_coordinates(net_density, gallery_coordinates)
     cameras = geometry.get_cameras_array(cameras_coordinates,radius)
+    start = time.time()
     node = a_star.aStar(cameras, gallery_polygon)
-    print_results(cameras,node)
+    end = time.time()
+    a_star_time = round(end - start,4)
+    print_results(cameras,node,a_star_time)
 
 if __name__ == "__main__":
     main()
