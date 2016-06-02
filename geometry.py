@@ -43,6 +43,13 @@ class Camera:
     def disableCamera(self):
         self.enabled=False
 
+def get_cameras_array(cameras_coordinates,radius):
+    cameras = []
+    for (i, coordinate) in enumerate(cameras_coordinates):
+        camera = Camera(coordinate, radius)
+        cameras.append(camera)
+    return cameras
+
 def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon):
     indexArray = []
     for (i, camera) in enumerate(camerasArray):
