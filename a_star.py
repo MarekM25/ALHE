@@ -39,23 +39,12 @@ class node:
 
 
 def aStar(cameras):
-    nodes=[]
-    node1 = node()
-    node2 = node()
-    node1.fScore = 10
-    node2.fScore = 3
-    heapq.heappush(nodes, (1, node1))
-    heapq.heappush(nodes, (2, node2))
-    print(heapq.heappop(nodes)[1].fScore)
     root = node()
     root.cameras = cameras
     root.expand()
-    s = node()
-    s.fScore = 3
-
     nodesQueueByFScore = PriorityQueue()
-    nodesQueueByFScore.put(root,-root.fScore)
-    nodesQueueByFScore.put(s,-s.fScore)
+    nodesQueueByFScore.put(root,root.fScore)
+
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
         if currentNode.hScore == 0:
@@ -67,4 +56,4 @@ def aStar(cameras):
             newNode.cameras = currentNode.cameras
             newNode.disableCamera(childIndex)
             newNode.expand()
-            nodesQueueByFScore.put(newNode,-newNode.fScore)
+            nodesQueueByFScore.put(newNode,newNode.fScore)
