@@ -1,6 +1,7 @@
 import heapq
 import geometry
 import copy
+import time
 
 class PriorityQueue:
     def __init__(self):
@@ -22,6 +23,7 @@ class node:
         self.stepCost = 0
         self.fScore = 0
         self.childIndexes = []
+        self.index = 0
         self.cameras = []
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -34,8 +36,7 @@ class node:
                # return self.stepCost < other.stepCost
             return self.fScore< other.fScore
     def expand(self,gallery_polygon):
-        self.childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras, gallery_polygon)
-        self.hScore =  len(self.childIndexes)
+        (self.childIndexes,self.hScore) = geometry.getIndexOfCamerasToTurnOff(self.cameras, gallery_polygon, self.index)
         self.fScore = self.stepCost + self.hScore
     def disableCamera(self,indexToDisable):
         self.cameras[indexToDisable].disableCamera()
@@ -46,9 +47,10 @@ def aStar(cameras, gallery_polygon):
     root.cameras = cameras
     root.expand(gallery_polygon)
     nodesQueueByFScore = PriorityQueue()
-    nodesQueueByFScore.put(root,-1000*root.fScore-root.stepCost)
+    nodesQueueByFScore.put(root,-root.fScore)
 
     while not nodesQueueByFScore.empty():
+
         currentNode = nodesQueueByFScore.get()
         print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
         if currentNode.hScore == 0:
@@ -56,7 +58,11 @@ def aStar(cameras, gallery_polygon):
         for (i,childIndex) in enumerate(currentNode.childIndexes):
             newNode = node()
             newNode.stepCost = currentNode.stepCost + 1
+            newNode.childIndexes = childIndex
             newNode.cameras = copy.deepcopy(currentNode.cameras)
             newNode.disableCamera(childIndex)
+
             newNode.expand(gallery_polygon)
-            nodesQueueByFScore.put(newNode,-1000*newNode.fScore-newNode.stepCost)
+
+            nodesQueueByFScore.put(newNode,-newNode.fScore)
+

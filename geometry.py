@@ -2,6 +2,8 @@ from shapely.geometry import Polygon
 from shapely.geometry import Point
 from shapely.ops import cascaded_union
 
+import time
+
 def get_cameras_coordinates(net_density, gallery_coordinates):
     min_x, max_x, min_y, max_y = get_extremes_from_coordinates(gallery_coordinates)
     gallery_polygon=Polygon(gallery_coordinates)
@@ -50,15 +52,26 @@ def get_cameras_array(cameras_coordinates,radius):
         cameras.append(camera)
     return cameras
 
-def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon):
+def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon,index):
     indexArray = []
+    hScore = 0
+
     for (i, camera) in enumerate(camerasArray):
-        if camerasArray[i].enabled == True:
-            camerasArray[i].disableCamera()
-            if isGalleryCovered(camerasArray,gallery_polygon):
-                indexArray.append(i)
-            camerasArray[i].enabled = True
-    return indexArray
+        if camera.enabled == True:
+            camera.disableCamera()
+            if i>index:
+                start = time.time()
+                galleryCovered = isGalleryCovered(camerasArray,gallery_polygon)
+                end = time.time()
+                a_star_time = end - start
+                print(a_star_time)
+                if galleryCovered:
+                    hScore +=1
+                    indexArray.append(i)
+            camera.enabled = True
+
+
+    return (indexArray, hScore)
 
 def isGalleryCovered(camerasArray, gallery_polygon):
     circles_array=[]
