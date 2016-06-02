@@ -182,10 +182,10 @@ class node:
         self.fScore = 0
         self.childIndexes = []
 
-class circleAndTurnsOff(object,object):
-    def __init__(self, turnOff = True,circle = 0):
-        self.turnOff = turnOff
-        self.circle = circle
+# class circleAndTurnsOff(object,object):
+#     def __init__(self, turnOff = True,circle = 0):
+#         self.turnOff = turnOff
+#         self.circle = circle
 
 def getIndexOfElements():
     return [1,2,3]
@@ -200,6 +200,8 @@ def initCircleAndTurnsOff():
     test = circleAndTurnsOff(True,10)
     print(circleAndTurnsOff.circle)
 
+def testMethod():
+    print('working')
 
 def main():
     initCircleAndTurnsOff()
@@ -222,4 +224,5 @@ def main():
 
 # if __name__ == "__main__":
 #     main()
+
 

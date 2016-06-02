@@ -10,6 +10,7 @@ xn  yn
 
 from shapely.geometry import Polygon
 from shapely.geometry import Point
+import implementation
 
 def read_data_from_file():
     with open('input.txt') as file:
@@ -73,6 +74,7 @@ def main():
     cameras_coordinates=get_cameras_coordinates(net_density, gallery_coordinates)
     testCameraClass(cameras_coordinates,radius)
     print("Pole całkowite galerii: {}".format(gallery_polygon.area))
+    implementation.testMethod()
 
 if __name__ == "__main__":
     main()
