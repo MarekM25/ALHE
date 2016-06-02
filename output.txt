@@ -7,4 +7,4 @@ KAMERY, KTÓRE NALEŻY WŁĄCZYĆ:
 Kamera nr 1 o współrzędnych POINT (1 0.5)
 
 MINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: 1
-Czas wykonania algorytmu: 0.007
+Czas wykonania algorytmu: 0.018
