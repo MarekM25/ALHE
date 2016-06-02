@@ -22,6 +22,14 @@ class node:
         self.fScore = 0
         self.childIndexes = []
         self.cameras = []
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.fScore == other.fScore
+        return NotImplemented
+
+    def __lt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.fScore< other.fScore
     def expand(self):
         self.childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras)
         self.hScore =  len(self.childIndexes)
@@ -31,12 +39,23 @@ class node:
 
 
 def aStar(cameras):
+    nodes=[]
+    node1 = node()
+    node2 = node()
+    node1.fScore = 10
+    node2.fScore = 3
+    heapq.heappush(nodes, (1, node1))
+    heapq.heappush(nodes, (2, node2))
+    print(heapq.heappop(nodes)[1].fScore)
     root = node()
     root.cameras = cameras
     root.expand()
+    s = node()
+    s.fScore = 3
+
     nodesQueueByFScore = PriorityQueue()
     nodesQueueByFScore.put(root,-root.fScore)
-
+    nodesQueueByFScore.put(s,-s.fScore)
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
         if currentNode.hScore == 0:
