@@ -12,15 +12,16 @@ from shapely.geometry import Polygon
 import geometry
 import codecs
 import a_star
+import sys
 
 def read_data_from_file():
-    with open('input2.txt') as file:
+    with open(sys.argv[1]) as file:
         radius, net_density = [float(x) for x in next(file).split()]
         gallery_coordinates = [[float(x) for x in line.split()] for line in file]
     return radius, net_density, gallery_coordinates
 
 def print_results(cameras,node):
-    output = codecs.open("output.txt", 'w', "utf-8")
+    output = codecs.open(sys.argv[2], 'w', "utf-8")
     print("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: ")
     output.write("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: \n")
     print_cameras_coordinates(cameras,output)

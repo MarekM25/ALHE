@@ -1,0 +1,9 @@
+LISTA WSZYSTKICH DOSTĘPNYCH KAMER: 
+Kamera nr 0 o współrzędnych POINT (0.5 0.5)
+Kamera nr 1 o współrzędnych POINT (1 0.5)
+Kamera nr 2 o współrzędnych POINT (1.5 0.5)
+
+KAMERY, KTÓRE NALEŻY WŁĄCZYĆ: 
+Kamera nr 1 o współrzędnych POINT (1 0.5)
+
+MINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: 1
