@@ -42,7 +42,7 @@ def main():
     geometry.isGalleryCovered(cameras,gallery_polygon)
     print()
     print("Należy wyłączyć kamery:")
-    node = a_star.aStar(cameras)
+    node = a_star.aStar(cameras, gallery_polygon)
     print_cameras_to_turn_off(node)
 if __name__ == "__main__":
     main()

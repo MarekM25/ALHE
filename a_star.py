@@ -31,18 +31,18 @@ class node:
     def __lt__(self, other):
         if isinstance(other, self.__class__):
             return self.fScore< other.fScore
-    def expand(self):
-        self.childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras)
+    def expand(self,gallery_polygon):
+        self.childIndexes = geometry.getIndexOfCamerasToTurnOff(self.cameras, gallery_polygon)
         self.hScore =  len(self.childIndexes)
         self.fScore = self.stepCost + self.hScore
     def disableCamera(self,indexToDisable):
         self.cameras[indexToDisable].disableCamera()
 
 
-def aStar(cameras):
+def aStar(cameras, gallery_polygon):
     root = node()
     root.cameras = cameras
-    root.expand()
+    root.expand(gallery_polygon)
     nodesQueueByFScore = PriorityQueue()
     nodesQueueByFScore.put(root,-root.fScore)
 
@@ -55,5 +55,5 @@ def aStar(cameras):
             newNode.stepCost = currentNode.stepCost + 1
             newNode.cameras = copy.deepcopy(currentNode.cameras)
             newNode.disableCamera(childIndex)
-            newNode.expand()
+            newNode.expand(gallery_polygon)
             nodesQueueByFScore.put(newNode,-newNode.fScore)

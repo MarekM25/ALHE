@@ -43,32 +43,15 @@ class Camera:
     def disableCamera(self):
         self.enabled=False
 
-def testCameraClass(cameras_coordinates,radius):
-    camera = Camera(cameras_coordinates[0], radius)
-    print (camera.point)
-    print (camera.radius)
-    print (camera.enabled)
-    print(camera.circle)
-    camera.disableCamera()
-    print(camera.enabled)
-
-def getIndexOfCamerasToTurnOff(camerasArray):
+def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon):
     indexArray = []
     for (i, camera) in enumerate(camerasArray):
         if camerasArray[i].enabled == True:
             camerasArray[i].disableCamera()
-            if isGalleryCoveredMock(camerasArray,[]):
+            if isGalleryCovered(camerasArray,gallery_polygon):
                 indexArray.append(i)
             camerasArray[i].enabled = True
     return indexArray
-
-def isGalleryCoveredMock(cameras,gallery):
-    if cameras[1].enabled == True:
-        return True
-    if cameras[0].enabled == True and cameras[2].enabled == True:
-        return True
-    return False
-
 
 def isGalleryCovered(camerasArray, gallery_polygon):
     circles_array=[]
