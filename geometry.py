@@ -50,3 +50,7 @@ def testCameraClass(cameras_coordinates,radius):
     print(camera.circle)
     camera.disableCamera()
     print(camera.enabled)
+
+
+def isGalleryCovered(boolCameraArray):
+    return True

@@ -21,13 +21,15 @@ def read_data_from_file():
     return radius, net_density, gallery_coordinates
 
 
-#def isGalleryCovered()
-
 def main():
     radius, net_density, gallery_coordinates = read_data_from_file()
     gallery_polygon = Polygon(gallery_coordinates)
     cameras_coordinates=geometry.get_cameras_coordinates(net_density, gallery_coordinates)
-    geometry.testCameraClass(cameras_coordinates,radius)
+    cameras = []
+    for (i,coordinate) in enumerate(cameras_coordinates):
+            camera = geometry.Camera(coordinate, radius)
+            cameras.append(camera)
+    print(cameras[0].point)
     print("Pole całkowite galerii: {}".format(gallery_polygon.area))
     a_star.aStar()
 
