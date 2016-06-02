@@ -177,32 +177,48 @@ def a_star_search(graph, start, goal):
 
 class node:
     def __init__(self):
-        self.fScore = 0;
-        self.hScore = 0;
+        self.hScore = 0
+        self.stepCost = 0
+        self.fScore = 0
+        self.childIndexes = []
+
+class circleAndTurnsOff(object,object):
+    def __init__(self, turnOff = True,circle = 0):
+        self.turnOff = turnOff
+        self.circle = circle
 
 def getIndexOfElements():
     return [1,2,3]
 
+class Test(object):
+    def __init__(self, circle):
+        self.circle = x
+
+def initCircleAndTurnsOff():
+    test = Test(3)
+    print(test.x)
+    test = circleAndTurnsOff(True,10)
+    print(circleAndTurnsOff.circle)
+
+
 def main():
-    s = node()
-    s.fScore = 10
-    s2 = node()
-    s2.fScore = 12
-    s3 = node()
-    s3.fScore = 8
-    s3.hScore = 3
-    testQueue = PriorityQueue()
-    testQueue.put(s,s.fScore)
-    testQueue.put(s2,s2.fScore)
-    testQueue.put(s3,s3.fScore)
-    while not testQueue.empty():
-        currentNode = testQueue.get()
-        indexOfElements = getIndexOfElements()
-        currentNode.hScore = len(indexOfElements)
+    initCircleAndTurnsOff()
+    #circleAndTurnsOff =
+    root = node()
+    root.childIndexes = getIndexOfElements()
+    root.hScore = len(root.childIndexes)
+    root.fScore = root.stepCost + root.hScore
+    nodesQueueByFScore = PriorityQueue()
+    nodesQueueByFScore.put(root,root.fScore)
+
+
+
+    while not nodesQueueByFScore.empty():
+        currentNode = nodesQueueByFScore.get()
         if currentNode.hScore == 0:
             break
-        print(currentNode.fScore)
-        print(currentNode.hScore)
+        for i in range(len(currentNode.childIndexes)):
+            print(currentNode.childIndexes[i])
 
 if __name__ == "__main__":
     main()
