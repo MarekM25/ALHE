@@ -55,7 +55,7 @@ def getIndexOfCamerasToTurnOff(camerasArray):
     indexArray = []
     for (i, camera) in enumerate(camerasArray):
         camerasArray[i].disableCamera()
-        if (isGalleryCovered(camerasArray)):
+        if isGalleryCovered(camerasArray):
             indexArray.append(i)
         camerasArray[i].enabled = True
     return indexArray

@@ -35,6 +35,7 @@ def aStar(cameras):
     root.cameras = cameras
     root.expand()
     nodesQueueByFScore = PriorityQueue()
+    #nodesQueueByFScore.put(root,root.fScore)
 
     while not nodesQueueByFScore.empty():
         currentNode = nodesQueueByFScore.get()
