@@ -10,16 +10,14 @@ xn  yn
 
 from shapely.geometry import Polygon
 import geometry
-import codecs
 import a_star
 import sys
 import time
 
 def read_data_from_file():
     with open(sys.argv[1]) as file:
-        radius, net_density = (float(sys.argv[2]), float(sys.argv[3]))
         gallery_coordinates = [[float(x) for x in line.split()] for line in file]
-    return radius, net_density, gallery_coordinates
+    return gallery_coordinates
 
 def print_results(cameras,node,a_star_time):
     print("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: ")
@@ -50,21 +48,23 @@ def print_experiment_results(a_star_time,cameras,node):
 
 
 def main():
-    radius, net_density, gallery_coordinates = read_data_from_file()
+    radius, net_density=(float(sys.argv[2]), float(sys.argv[3]))
+    gallery_coordinates = read_data_from_file()
     geometry.Gallery.gallery_polygon = Polygon(gallery_coordinates)
     cameras_coordinates=geometry.get_cameras_coordinates(net_density, gallery_coordinates)
     cameras = geometry.get_cameras_array(cameras_coordinates,radius)
     geometry.Gallery.cameras = cameras
     geometry.Gallery.camerasAmount = len(cameras)
-    if sys.argv[4]=='t':
+    userFriendlyOutput=(sys.argv[4]=='t')
+    if userFriendlyOutput:
         print_cameras_coordinates(cameras)
     start = time.time()
     node = a_star.aStar(cameras)
     end = time.time()
     a_star_time = round(end - start,4)
-    if sys.argv[4]=='t':
+    if userFriendlyOutput:
         print_results(cameras,node,a_star_time)
-    if sys.argv[4]=='f':
+    if not userFriendlyOutput:
         print_experiment_results(a_star_time,cameras,node)
 
 if __name__ == "__main__":
