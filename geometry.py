@@ -60,11 +60,7 @@ def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon,index):
         if camera.enabled == True:
             camera.disableCamera()
             if i>index:
-                start = time.time()
                 galleryCovered = isGalleryCovered(camerasArray,gallery_polygon)
-                end = time.time()
-                a_star_time = end - start
-                print(a_star_time)
                 if galleryCovered:
                     hScore +=1
                     indexArray.append(i)

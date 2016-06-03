@@ -17,7 +17,7 @@ import time
 
 def read_data_from_file():
     with open(sys.argv[1]) as file:
-        radius, net_density = [float(x) for x in next(file).split()]
+        radius, net_density = (float(sys.argv[2]), float(sys.argv[3]))
         gallery_coordinates = [[float(x) for x in line.split()] for line in file]
     return radius, net_density, gallery_coordinates
 
@@ -41,17 +41,28 @@ def print_cameras_to_turn_on(node):
             print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
     print("\nMINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: {}".format(counter))
 
+def print_experiment_results(a_star_time,cameras,node):
+    amountOfTurnOnCameras = 0
+    for (i,camera) in enumerate(node.cameras):
+        if camera.enabled == True:
+            amountOfTurnOnCameras +=1
+    print("{}\t{}\t{}\t{}\t{}".format(float(sys.argv[2]),float(sys.argv[3]),a_star_time,len(cameras),amountOfTurnOnCameras))
+
 def main():
     radius, net_density, gallery_coordinates = read_data_from_file()
     gallery_polygon = Polygon(gallery_coordinates)
     cameras_coordinates=geometry.get_cameras_coordinates(net_density, gallery_coordinates)
     cameras = geometry.get_cameras_array(cameras_coordinates,radius)
-    print_cameras_coordinates(cameras)
+    if sys.argv[4]=='t':
+        print_cameras_coordinates(cameras)
     start = time.time()
     node = a_star.aStar(cameras, gallery_polygon)
     end = time.time()
     a_star_time = round(end - start,4)
-    print_results(cameras,node,a_star_time)
+    if sys.argv[4]=='t':
+        print_results(cameras,node,a_star_time)
+    if sys.argv[4]=='f':
+        print_experiment_results(a_star_time,cameras,node)
 
 if __name__ == "__main__":
     main()

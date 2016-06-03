@@ -52,17 +52,20 @@ def aStar(cameras, gallery_polygon):
     while not nodesQueueByFScore.empty():
 
         currentNode = nodesQueueByFScore.get()
-        print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
+        #print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
         if currentNode.hScore == 0:
             return currentNode
+
         for (i,childIndex) in enumerate(currentNode.childIndexes):
+
             newNode = node()
             newNode.stepCost = currentNode.stepCost + 1
             newNode.childIndexes = childIndex
             newNode.cameras = copy.deepcopy(currentNode.cameras)
-            newNode.disableCamera(childIndex)
 
             newNode.expand(gallery_polygon)
+            newNode.disableCamera(childIndex)
+
 
             nodesQueueByFScore.put(newNode,-newNode.fScore)
 
