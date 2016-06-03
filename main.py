@@ -1,13 +1,3 @@
-'''
-input.txt structure:
-
-radius net_density
-x1  y1
-x2  y2
-... ...
-xn  yn
-'''
-
 from shapely.geometry import Polygon
 import geometry
 import a_star
