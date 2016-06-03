@@ -1,7 +1,5 @@
 import heapq
 import geometry
-import copy
-import time
 
 class PriorityQueue:
     def __init__(self):

@@ -27,7 +27,7 @@ def print_cameras_to_turn_on(node):
         if node.camerasState[i]:
             counter=counter+1
             print("Kamera nr {} o współrzędnych {}".format(i,geometry.Gallery.cameras[i].point))
-    print("\nMINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: {}".format(counter))
+    print("\nMINIMALNA LICZBA KAMER DO POKRYCIA OBSZARU: {}".format(counter))
 
 def print_experiment_results(a_star_time,cameras,node):
     amountOfTurnOnCameras = 0
@@ -46,8 +46,6 @@ def main():
     geometry.Gallery.cameras = cameras
     geometry.Gallery.camerasAmount = len(cameras)
     userFriendlyOutput=(sys.argv[4]=='t')
-    if userFriendlyOutput:
-        print_cameras_coordinates(cameras)
     start = time.time()
     node = a_star.aStar(cameras)
     end = time.time()
