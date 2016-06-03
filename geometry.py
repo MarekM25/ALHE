@@ -45,6 +45,10 @@ class Camera:
     def disableCamera(self):
         self.enabled=False
 
+class Gallery:
+    gallery_polygon = None
+    cameras = None
+
 def get_cameras_array(cameras_coordinates,radius):
     cameras = []
     for (i, coordinate) in enumerate(cameras_coordinates):
@@ -52,7 +56,7 @@ def get_cameras_array(cameras_coordinates,radius):
         cameras.append(camera)
     return cameras
 
-def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon,index):
+def getIndexOfCamerasToTurnOff(camerasArray,index):
     indexArray = []
     hScore = 0
 
@@ -60,7 +64,7 @@ def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon,index):
         if camera.enabled == True:
             camera.disableCamera()
             if i>index:
-                galleryCovered = isGalleryCovered(camerasArray,gallery_polygon)
+                galleryCovered = isGalleryCovered(camerasArray)
                 if galleryCovered:
                     hScore +=1
                     indexArray.append(i)
@@ -69,10 +73,10 @@ def getIndexOfCamerasToTurnOff(camerasArray, gallery_polygon,index):
 
     return (indexArray, hScore)
 
-def isGalleryCovered(camerasArray, gallery_polygon):
+def isGalleryCovered(camerasArray):
     circles_array=[]
     for (i, camera) in enumerate(camerasArray):
         if(camera.enabled):
             circles_array.append(camera.circle)
     circles_union=cascaded_union(circles_array)
-    return (circles_union.intersection(gallery_polygon)==gallery_polygon)
+    return (circles_union.intersection(Gallery.gallery_polygon)==Gallery.gallery_polygon)

@@ -48,15 +48,17 @@ def print_experiment_results(a_star_time,cameras,node):
             amountOfTurnOnCameras +=1
     print("{}\t{}\t{}\t{}\t{}".format(float(sys.argv[2]),float(sys.argv[3]),a_star_time,len(cameras),amountOfTurnOnCameras))
 
+
 def main():
     radius, net_density, gallery_coordinates = read_data_from_file()
     gallery_polygon = Polygon(gallery_coordinates)
+    geometry.Gallery.gallery_polygon = gallery_polygon
     cameras_coordinates=geometry.get_cameras_coordinates(net_density, gallery_coordinates)
     cameras = geometry.get_cameras_array(cameras_coordinates,radius)
     if sys.argv[4]=='t':
         print_cameras_coordinates(cameras)
     start = time.time()
-    node = a_star.aStar(cameras, gallery_polygon)
+    node = a_star.aStar(cameras)
     end = time.time()
     a_star_time = round(end - start,4)
     if sys.argv[4]=='t':
