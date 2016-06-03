@@ -23,8 +23,8 @@ class node:
         self.stepCost = 0
         self.fScore = 0
         self.childIndexes = []
-        self.index = 0
-        self.cameras = []
+        self.index = -1
+        self.camerasState = [True]*geometry.Gallery.camerasAmount
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.fScore == other.fScore #and self.stepCost == self.stepCost
@@ -36,23 +36,20 @@ class node:
                # return self.stepCost < other.stepCost
             return self.fScore< other.fScore
     def expand(self):
-        (self.childIndexes,self.hScore) = geometry.getIndexOfCamerasToTurnOff(self.cameras, self.index)
+        (self.childIndexes,self.hScore) = geometry.getIndexOfCamerasToTurnOff(self.camerasState,self.index)
         self.fScore = self.stepCost + self.hScore
-    def disableCamera(self,indexToDisable):
-        self.cameras[indexToDisable].disableCamera()
 
 
 def aStar(cameras):
     root = node()
-    root.cameras = cameras
     root.expand()
     nodesQueueByFScore = PriorityQueue()
-    nodesQueueByFScore.put(root,-root.fScore)
+    nodesQueueByFScore.put(root,-root.fScore*1000 - root.stepCost)
 
     while not nodesQueueByFScore.empty():
 
         currentNode = nodesQueueByFScore.get()
-        #print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
+        print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
         if currentNode.hScore == 0:
             return currentNode
 
@@ -61,11 +58,11 @@ def aStar(cameras):
             newNode = node()
             newNode.stepCost = currentNode.stepCost + 1
             newNode.childIndexes = childIndex
-            newNode.cameras = copy.deepcopy(currentNode.cameras)
-
+            newNode.index = childIndex
+            newNode.camerasState = list(currentNode.camerasState)
+            newNode.camerasState[childIndex] = False
             newNode.expand()
-            newNode.disableCamera(childIndex)
 
 
-            nodesQueueByFScore.put(newNode,-newNode.fScore)
+            nodesQueueByFScore.put(newNode,-newNode.fScore*1000 - newNode.stepCost)
 

@@ -30,15 +30,15 @@ def print_results(cameras,node,a_star_time):
     print("Czas wykonania algorytmu: {}".format(a_star_time))
 
 def print_cameras_coordinates(cameras):
-    for (i, camera) in enumerate(cameras):
+    for (i, camera) in enumerate(geometry.Gallery.cameras):
         print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
 
 def print_cameras_to_turn_on(node):
     counter=0
-    for (i, camera) in enumerate(node.cameras):
-        if (camera.enabled == True):
+    for (i, camera) in enumerate(node.camerasState):
+        if node.camerasState[i]:
             counter=counter+1
-            print("Kamera nr {} o współrzędnych {}".format(i,camera.point))
+            print("Kamera nr {} o współrzędnych {}".format(i,geometry.Gallery.cameras[i].point))
     print("\nMINIMALNA LICZBA KAMER DO POKYCIA OBSZARU: {}".format(counter))
 
 def print_experiment_results(a_star_time,cameras,node):
@@ -51,10 +51,11 @@ def print_experiment_results(a_star_time,cameras,node):
 
 def main():
     radius, net_density, gallery_coordinates = read_data_from_file()
-    gallery_polygon = Polygon(gallery_coordinates)
-    geometry.Gallery.gallery_polygon = gallery_polygon
+    geometry.Gallery.gallery_polygon = Polygon(gallery_coordinates)
     cameras_coordinates=geometry.get_cameras_coordinates(net_density, gallery_coordinates)
     cameras = geometry.get_cameras_array(cameras_coordinates,radius)
+    geometry.Gallery.cameras = cameras
+    geometry.Gallery.camerasAmount = len(cameras)
     if sys.argv[4]=='t':
         print_cameras_coordinates(cameras)
     start = time.time()
