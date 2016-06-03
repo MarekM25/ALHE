@@ -43,10 +43,10 @@ def print_cameras_to_turn_on(node):
 
 def print_experiment_results(a_star_time,cameras,node):
     amountOfTurnOnCameras = 0
-    for (i,camera) in enumerate(node.cameras):
-        if camera.enabled == True:
+    for (i,camera) in enumerate(node.camerasState):
+        if node.camerasState[i] == True:
             amountOfTurnOnCameras +=1
-    print("{}\t{}\t{}\t{}\t{}".format(float(sys.argv[2]),float(sys.argv[3]),a_star_time,len(cameras),amountOfTurnOnCameras))
+    print("{}\t{}\t{}\t{}\t{}".format(float(sys.argv[2]),float(sys.argv[3]),a_star_time,geometry.Gallery.camerasAmount,amountOfTurnOnCameras))
 
 
 def main():

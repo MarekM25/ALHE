@@ -49,7 +49,7 @@ def aStar(cameras):
     while not nodesQueueByFScore.empty():
 
         currentNode = nodesQueueByFScore.get()
-        print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
+        #print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
         if currentNode.hScore == 0:
             return currentNode
 
