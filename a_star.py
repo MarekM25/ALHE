@@ -40,6 +40,8 @@ class node:
 
 def aStar(cameras):
     root = node()
+    if not geometry.isGalleryCovered(root.camerasState):
+        return None
     root.expand()
     nodesQueueByFScore = PriorityQueue()
     nodesQueueByFScore.put(root,-root.fScore*1000 - root.stepCost)

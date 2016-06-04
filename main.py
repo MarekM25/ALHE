@@ -12,6 +12,9 @@ def read_data_from_file():
 def print_results(cameras,node,a_star_time):
     print("LISTA WSZYSTKICH DOSTĘPNYCH KAMER: ")
     print_cameras_coordinates(cameras)
+    if node is None:
+        print("NIE DA SIĘ POKRYĆ WSZYSTKIMI KAMERAMI CAŁEGO OBSZARU!")
+        return
     print("\nKAMERY, KTÓRE NALEŻY WŁĄCZYĆ: ")
     print_cameras_to_turn_on(node)
     print()
@@ -31,6 +34,9 @@ def print_cameras_to_turn_on(node):
 
 def print_experiment_results(a_star_time,cameras,node):
     amountOfTurnOnCameras = 0
+    if node is None:
+        print("{}\t{}\t{}\t{}\t{}".format(float(sys.argv[2]), float(sys.argv[3]), a_star_time, geometry.Gallery.camerasAmount,"-"))
+        return
     for (i,camera) in enumerate(node.camerasState):
         if node.camerasState[i] == True:
             amountOfTurnOnCameras +=1
