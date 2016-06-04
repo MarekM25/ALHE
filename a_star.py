@@ -25,13 +25,11 @@ class node:
         self.camerasState = [True]*geometry.Gallery.camerasAmount
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.fScore == other.fScore #and self.stepCost == self.stepCost
+            return self.fScore == other.fScore
         return NotImplemented
 
     def __lt__(self, other):
         if isinstance(other, self.__class__):
-           # if (self.fScore == other.fScore):
-               # return self.stepCost < other.stepCost
             return self.fScore< other.fScore
     def expand(self):
         (self.childIndexes,self.hScore) = geometry.getIndexOfCamerasToTurnOff(self.camerasState,self.index)
@@ -47,9 +45,7 @@ def aStar(cameras):
     nodesQueueByFScore.put(root,-root.fScore*1000 - root.stepCost)
 
     while not nodesQueueByFScore.empty():
-
         currentNode = nodesQueueByFScore.get()
-        #print("FScore {} StepCost {} HScore {}".format(currentNode.fScore,currentNode.stepCost,currentNode.hScore))
         if currentNode.hScore == 0:
             return currentNode
 
@@ -62,7 +58,5 @@ def aStar(cameras):
             newNode.camerasState = list(currentNode.camerasState)
             newNode.camerasState[childIndex] = False
             newNode.expand()
-
-
             nodesQueueByFScore.put(newNode,-newNode.fScore*1000 - newNode.stepCost)
 

@@ -2,8 +2,6 @@ from shapely.geometry import Polygon
 from shapely.geometry import Point
 from shapely.ops import cascaded_union
 
-import time
-
 def get_cameras_coordinates(net_density, gallery_coordinates):
     min_x, max_x, min_y, max_y = get_extremes_from_coordinates(gallery_coordinates)
     gallery_polygon=Polygon(gallery_coordinates)
